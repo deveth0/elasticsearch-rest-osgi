@@ -1,0 +1,70 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+
+  <groupId>de.dev.eth0.elasticsearch</groupId>
+  <artifactId>elasticsearch-rest-osgi</artifactId>
+  <version>5.1.1-SNAPSHOT</version>
+  <packaging>bundle</packaging>
+
+  <name>ElasticSearch Rest Client OSGi Bundle</name>
+  <description>OSGi Bundle for the ElasticSearch Rest Client.</description>
+  <url>https://www.dev-eth0.de</url>
+  <inceptionYear>2016</inceptionYear>
+ 
+  <developers>
+    <developer>
+      <name>Alex Muthmann</name>
+    </developer>
+  </developers>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.elasticsearch.client</groupId>
+      <artifactId>rest</artifactId>
+      <version>5.1.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpasyncclient-osgi</artifactId>
+      <version>4.1.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.httpcomponents</groupId>
+      <artifactId>httpcore-osgi</artifactId>
+      <version>4.4.5</version>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <!-- Include all dependencies -->
+      <plugin>
+        <groupId>org.apache.felix</groupId>
+        <artifactId>maven-bundle-plugin</artifactId>
+        <version>3.2.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <instructions>
+            <Export-Package>org.elasticsearch;version=5.1.1</Export-Package>
+            <Embed-Transitive>true</Embed-Transitive>
+            <Embed-Dependency>rest;httpasyncclient-osgi;httpcore-osgi</Embed-Dependency>
+          </instructions>
+        </configuration>
+      </plugin>
+      <!-- Install bundle using mvn sling:install -Dsling.url=http://localhost:PORT/system/console -->
+      <plugin>
+        <groupId>org.apache.sling</groupId>
+        <artifactId>maven-sling-plugin</artifactId>
+        <version>2.1.8</version>
+      </plugin>
+    </plugins>
+  </build>
+
+ 
+</project>
